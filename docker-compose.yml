@@ -27,15 +27,15 @@ services:
   openrefine-transformation-refine-client-py:
     build:
       context: .
-      dockerfile: Dockerfile-refine-client-py-oracle
-    image: keboola/openrefine-transformation-refine-client-py-oracle
+      dockerfile: Dockerfile-refine-client-py
+    image: keboola/openrefine-transformation-refine-client-py
     command: /code/src/run-refine-client-py.sh
     network_mode: bridge
     volumes:
       - ./data:/data
       - .:/code
   openrefine-transformation-refine-client-py-test:
-    image: keboola/openrefine-transformation-refine-client-py-oracle
+    image: keboola/openrefine-transformation-refine-client-py
     command: /code/src/run-refine-client-py.test.sh
     network_mode: bridge
     volumes:

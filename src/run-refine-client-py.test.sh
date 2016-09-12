@@ -1,4 +1,5 @@
 #!/bin/sh
 
-nohup /app/openrefine-2.6-rc.2/refine -i 0.0.0.0 &
+supervisord -c /code/supervisor/supervisord.conf
+sleep 30
 python setup.py test
