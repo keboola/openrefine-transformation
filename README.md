@@ -1,5 +1,8 @@
 # OpenRefine Transformation
 
+[![Build Status](https://travis-ci.org/keboola/openrefine-transformation.svg?branch=master)](https://travis-ci.org/keboola/openrefine-transformation)
+[![Docker Repository on Quay](https://quay.io/repository/keboola/openrefine-transformation/status "Docker Repository on Quay")](https://quay.io/repository/keboola/openrefine-transformation)
+
 WORK IN PROGRESS!
 
 ## Version
