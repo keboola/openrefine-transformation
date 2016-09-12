@@ -22,7 +22,7 @@ services:
       - .:/code
     ports:
       - "3333:3333"
-    command: /app/openrefine-2.6-rc.2/refine -i 0.0.0.0
+    command: /app/OpenRefine-2.6-beta.1/refine -i 0.0.0.0
 
   openrefine-transformation-refine-client-py:
     build:
