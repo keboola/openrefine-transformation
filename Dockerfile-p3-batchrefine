@@ -104,13 +104,24 @@ RUN find /usr/share/ca-certificates/mozilla/ -name *.crt -exec keytool -import -
         -file {} -alias {} \; && \
         keytool -list -keystore /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts --storepass changeit
 
+# supervisor
+RUN apk --update add curl python
+RUN curl https://bootstrap.pypa.io/ez_setup.py -o - | python
+RUN easy_install supervisor
+
+# jq
+RUN apk --update add jq
+
 WORKDIR /app
 RUN git clone https://github.com/fusepoolP3/p3-batchrefine
 
 WORKDIR /app/p3-batchrefine/
 RUN git reset --hard 1.1.7
+RUN echo "1.1.7" > version
 RUN ./bin/refine-import.sh
 
-COPY ./src /code
+RUN nohup /app/OpenRefine-2.6-beta.1/refine -i 0.0.0.0 & sleep 30 && mvn package
 
-CMD /code/run-p3-batchrefine.sh
+COPY . /code
+
+CMD /code/src/run-p3-batchrefine.sh

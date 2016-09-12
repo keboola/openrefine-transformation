@@ -12,4 +12,4 @@ RUN rm -f openrefine-linux-2.6-rc.2.tar.gz
 
 # TODO https://mareklecian.cz/update-jython-knihovny-v-openrefine/
 
-COPY ./src /code
+COPY . /code

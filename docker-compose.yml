@@ -11,7 +11,7 @@ services:
     network_mode: bridge
     volumes:
       - ./data:/data
-      - ./src:/code
+      - .:/code
 
   openrefine-transformation-dev:
     image: keboola/openrefine-transformation
@@ -19,7 +19,7 @@ services:
     stdin_open: true
     volumes:
       - ./data:/data
-      - ./src:/code
+      - .:/code
     ports:
       - "3333:3333"
     command: /app/openrefine-2.6-rc.2/refine -i 0.0.0.0
@@ -29,31 +29,31 @@ services:
       context: .
       dockerfile: Dockerfile-refine-client-py-oracle
     image: keboola/openrefine-transformation-refine-client-py-oracle
-    command: /code/run-refine-client-py.sh
-    network_mode: none
-    volumes:
-      - ./data:/data
-      - ./src:/code
-  openrefine-transformation-refine-client-py-test:
-    image: keboola/openrefine-transformation-refine-client-py-oracle
-    command: /code/run-refine-client-py.test.sh
+    command: /code/src/run-refine-client-py.sh
     network_mode: bridge
     volumes:
-      - ./src:/code
+      - ./data:/data
+      - .:/code
+  openrefine-transformation-refine-client-py-test:
+    image: keboola/openrefine-transformation-refine-client-py-oracle
+    command: /code/src/run-refine-client-py.test.sh
+    network_mode: bridge
+    volumes:
+      - .:/code
 
   openrefine-transformation-p3-batchrefine:
     build:
       context: .
       dockerfile: Dockerfile-p3-batchrefine
     image: keboola/openrefine-transformation-p3-batchrefine
-    command: /code/run-p3-batchrefine.sh
-    network_mode: none
-    volumes:
-      - ./data:/data
-      - ./src:/code
-  openrefine-transformation-p3-batchrefine-test:
-    image: keboola/openrefine-transformation-p3-batchrefine
-    command: /code/run-p3-batchrefine.test.sh
+    command: /code/src/run-p3-batchrefine.sh
     network_mode: bridge
     volumes:
-      - ./src:/code
+      - ./data:/data
+      - .:/code
+  openrefine-transformation-p3-batchrefine-test:
+    image: keboola/openrefine-transformation-p3-batchrefine
+    command: /code/src/run-p3-batchrefine.test.sh
+    network_mode: bridge
+    volumes:
+      - .:/code
