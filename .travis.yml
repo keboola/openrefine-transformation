@@ -1,0 +1,46 @@
+sudo: required
+
+language: bash
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.6.2
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" -y install docker-engine
+
+install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+before_script:
+  - echo $TRAVIS_TAG > VERSION
+  - docker -v
+  - docker-compose -v
+
+script:
+  - docker-compose build openrefine-transformation-p3-batchrefine
+
+after_success:
+  - docker images
+
+after_error:
+  - docker-compose logs
+
+after_failure:
+  - docker-compose logs
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: ./deploy.sh
+  on:
+    tags: true
+
+notifications:
+  slack: keboola:NCe8LwHlAyQBD4KS8BM0JkuA
