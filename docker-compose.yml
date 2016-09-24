@@ -29,14 +29,14 @@ services:
       context: .
       dockerfile: Dockerfile-refine-client-py
     image: keboola/openrefine-transformation-refine-client-py
-    command: /code/src/run-refine-client-py.sh
+    command: /code/scripts/run-refine-client-py.sh
     network_mode: bridge
     volumes:
       - ./data:/data
       - .:/code
   openrefine-transformation-refine-client-py-test:
     image: keboola/openrefine-transformation-refine-client-py
-    command: /code/src/run-refine-client-py.test.sh
+    command: /code/scripts/run-refine-client-py.test.sh
     network_mode: bridge
     volumes:
       - .:/code
@@ -46,14 +46,14 @@ services:
       context: .
       dockerfile: Dockerfile-p3-batchrefine
     image: keboola/openrefine-transformation-p3-batchrefine
-    command: /code/src/run-p3-batchrefine.sh
+    command: /code/scripts/run-p3-batchrefine.sh
     network_mode: bridge
     volumes:
       - ./data:/data
       - .:/code
   openrefine-transformation-p3-batchrefine-test:
     image: keboola/openrefine-transformation-p3-batchrefine
-    command: /code/src/run-p3-batchrefine.test.sh
+    command: /code/scripts/run-p3-batchrefine.test.sh
     network_mode: bridge
     volumes:
       - .:/code

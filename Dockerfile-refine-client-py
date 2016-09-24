@@ -122,5 +122,5 @@ RUN pip install -r requirements.txt
 
 COPY . /code
 
-CMD /code/src/run-refine-client-py.sh
+CMD /code/scripts/run-refine-client-py.sh
 
