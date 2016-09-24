@@ -25,7 +25,7 @@ before_script:
   - docker-compose build
 
 script:
-  - docker-compose run tests
+  - docker-compose run tests -c sh -c 'sleep 30 & /code/tests/run.sh'
 
 after_success:
   - docker images
