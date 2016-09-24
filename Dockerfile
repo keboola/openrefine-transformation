@@ -1,4 +1,4 @@
-FROM php:7.1-alpine
+FROM php:7-alpine
 
 # Taken from https://github.com/anapsix/docker-alpine-java
 # Java Version and other ENV
