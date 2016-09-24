@@ -76,29 +76,24 @@ RUN apk --update add apache-ant wget git
 RUN mkdir /app
 WORKDIR /app
 
-RUN wget -q https://github.com/OpenRefine/OpenRefine/archive/2.6-beta.1.tar.gz && \
-    tar xzf 2.6-beta.1.tar.gz && \
-    rm -f 2.6-beta.1.tar.gz
+RUN wget -q https://github.com/OpenRefine/OpenRefine/archive/2.6-rc.2.tar.gz && \
+    tar xzf 2.6-rc.2.tar.gz && \
+    rm -f 2.6-rc.2.tar.gz
 
-WORKDIR /app/OpenRefine-2.6-beta.1
+WORKDIR /app/OpenRefine-2.6-rc.2
 RUN ant build jar_server jar_webapp
 
-WORKDIR /app/OpenRefine-2.6-beta.1/extensions
+WORKDIR /app/OpenRefine-2.6-rc.2/extensions
 RUN wget  -q https://github.com/fadmaa/grefine-rdf-extension/archive/v0.9.0.tar.gz && \
     tar xzf v0.9.0.tar.gz && \
     mv grefine-rdf-extension-0.9.0 rdf-extension && \
     rm -f v0.9.0.tar.gz
 
-WORKDIR /app/OpenRefine-2.6-beta.1/extensions/rdf-extension
+WORKDIR /app/OpenRefine-2.6-rc.2/extensions/rdf-extension
 RUN JAVA_TOOL_OPTIONS='-Dfile.encoding=UTF-8' ant build
 
 WORKDIR /usr/share/
 
-ENV MAVEN_VERSION 3.3.3
-RUN wget -q http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz -O - | tar xzf -
-RUN mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven
-ENV MAVEN_HOME /usr/share/maven
-RUN ln -s /usr/share/maven/bin/mvn /usr/bin/
 RUN find /usr/share/ca-certificates/mozilla/ -name *.crt -exec keytool -import -trustcacerts \
         -keystore /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts -storepass changeit -noprompt \
         -file {} -alias {} \; && \
