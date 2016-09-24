@@ -7,13 +7,13 @@ services:
     image: keboola/openrefine-transformation
     tty: true
     stdin_open: true
-    command: /code/run.sh
+    command: /code/scripts/run.sh
     network_mode: bridge
     volumes:
       - ./data:/data
       - .:/code
 
-  openrefine-transformation-dev:
+  devel:
     image: keboola/openrefine-transformation
     tty: true
     stdin_open: true
@@ -22,38 +22,17 @@ services:
       - .:/code
     ports:
       - "3333:3333"
-    command: /app/OpenRefine-2.6-beta.1/refine -i 0.0.0.0
+    command: /app/OpenRefine-2.6-rc.2/refine -i 0.0.0.0
 
-  openrefine-transformation-refine-client-py:
-    build:
-      context: .
-      dockerfile: Dockerfile-refine-client-py
-    image: keboola/openrefine-transformation-refine-client-py
-    command: /code/scripts/run-refine-client-py.sh
-    network_mode: bridge
-    volumes:
-      - ./data:/data
-      - .:/code
-  openrefine-transformation-refine-client-py-test:
-    image: keboola/openrefine-transformation-refine-client-py
-    command: /code/scripts/run-refine-client-py.test.sh
-    network_mode: bridge
+  tests:
+    image: keboola/openrefine-transformation
+    tty: true
+    stdin_open: true
+    command: /code/tests/run.sh
     volumes:
       - .:/code
-
-  openrefine-transformation-p3-batchrefine:
-    build:
-      context: .
-      dockerfile: Dockerfile-p3-batchrefine
-    image: keboola/openrefine-transformation-p3-batchrefine
-    command: /code/scripts/run-p3-batchrefine.sh
-    network_mode: bridge
-    volumes:
-      - ./data:/data
-      - .:/code
-  openrefine-transformation-p3-batchrefine-test:
-    image: keboola/openrefine-transformation-p3-batchrefine
-    command: /code/scripts/run-p3-batchrefine.test.sh
-    network_mode: bridge
-    volumes:
-      - .:/code
+    links:
+      - devel
+    environment:
+      - OPENREFINE_HOST=devel
+      - OPENREFINE_PORT=3333

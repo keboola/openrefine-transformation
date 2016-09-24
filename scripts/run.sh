@@ -1,5 +1,5 @@
-#!/bin/sh
-
+#!/bin/bash
 supervisord -c /code/supervisor/supervisord.conf
 sleep 30
-python setup.py test
+php ./src/main.php --data=$KBC_DATADIR
+

@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM php:7.1-alpine
 
 # Taken from https://github.com/anapsix/docker-alpine-java
 # Java Version and other ENV
@@ -98,3 +98,20 @@ RUN find /usr/share/ca-certificates/mozilla/ -name *.crt -exec keytool -import -
         -keystore /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts -storepass changeit -noprompt \
         -file {} -alias {} \; && \
         keytool -list -keystore /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts --storepass changeit
+
+# supervisor
+RUN apk --update add curl python
+RUN curl https://bootstrap.pypa.io/ez_setup.py -o - | python
+RUN easy_install supervisor
+
+COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
+COPY . /code
+
+WORKDIR /code
+
+RUN curl -sS https://getcomposer.org/installer | php \
+  && mv ./composer.phar /usr/local/bin/composer
+
+RUN composer install --no-interaction
+
+CMD /code/scripts/run.sh
