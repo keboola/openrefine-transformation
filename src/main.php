@@ -53,6 +53,7 @@ try {
     $outFile = $transformation->run($arguments["data"] . "/in/tables/data.csv", json_decode($config["parameters"]["script"][0], true));
     $filesystem = new \Symfony\Component\Filesystem\Filesystem();
     $filesystem->rename($outFile->getPathname(), $arguments["data"] . "/out/tables/data.csv");
+    $filesystem->chmod($arguments["data"] . "/out/tables/data.csv", 644);
 } catch (\Keboola\Transformation\Exception $e) {
     print $e->getMessage();
     exit(1);
