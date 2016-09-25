@@ -4,7 +4,9 @@
   "type": "project",
   "require": {
     "php": "~7.0",
-    "keboola/openrefine-php-client": "~0.1"
+    "keboola/openrefine-php-client": "~1.0",
+    "symfony/filesystem": "~3.0",
+    "vkartaviy/retry": "~0.2.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.4",

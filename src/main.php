@@ -20,12 +20,41 @@ if (!isset($config["parameters"]["script"])) {
     exit(1);
 }
 
+$openrefineHost = "localhost";
+if (getenv("OPENREFINE_HOST")) {
+    $openrefineHost = getenv("OPENREFINE_HOST");
+}
+$openrefinePort = 3333;
+if (getenv("OPENREFINE_PORT")) {
+    $openrefinePort = getenv("OPENREFINE_PORT");
+}
+
+// test if openrefine server is running
+$client = new GuzzleHttp\Client([
+    "base_uri" => "http://" . $openrefineHost . ":" . $openrefinePort
+]);
+$proxy = new \Retry\RetryProxy(
+    new \Retry\Policy\SimpleRetryPolicy(5),
+    new \Retry\BackOff\ExponentialBackOffPolicy(10000)
+);
+$proxy->call(function () use ($client) {
+    try {
+        $response = $client->get("/");
+    } catch (\GuzzleHttp\Exception\ConnectException $e) {
+        throw new \Exception("OpenRefine not available: " . $e->getMessage());
+    }
+    if (strripos($response->getBody()->__toString(), "Butterfly")) {
+        throw new \Exception("OpenRefine not initialized");
+    }
+});
+
 try {
-    $transformation = new \Keboola\Transformation\OpenRefine();
-    $result = $transformation->run($arguments["data"] . "/in/tables/data.csv", $arguments . "/out/tables/data.csv", $config["parameters"]["script"][0]);
+    $transformation = new \Keboola\Transformation\OpenRefine($openrefineHost, $openrefinePort);
+    $outFile = $transformation->run($arguments["data"] . "/in/tables/data.csv", json_decode($config["parameters"]["script"][0], true));
+    $filesystem = new \Symfony\Component\Filesystem\Filesystem();
+    $filesystem->rename($outFile->getPathname(), $arguments["data"] . "/out/tables/data.csv");
 } catch (\Keboola\Transformation\Exception $e) {
     print $e->getMessage();
     exit(1);
 }
-print $result;
 exit(0);

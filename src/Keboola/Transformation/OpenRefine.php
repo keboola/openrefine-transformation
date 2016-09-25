@@ -38,21 +38,22 @@ class OpenRefine
 
     /**
      * @param $in
-     * @param $out
      * @param $operations
+     * @return CsvFile
      * @throws Exception
      */
-    public function run($in, $out, $operations)
+    public function run($in, $operations)
     {
         $client = new Client($this->host, $this->port);
         $csv = new CsvFile($in);
         try {
             $projectId = $client->createProject($csv, "Transformation Test");
             $client->applyOperations($projectId, $operations);
-            $client->exportRowsToCsv($projectId, $out);
+            $outFile = $client->exportRowsToCsv($projectId);
             $client->deleteProject($projectId);
         } catch (Exception $e) {
             throw new Exception("Error processing OpenRefine operations: {$e->getMessage()}");
         }
+        return $outFile;
     }
 }

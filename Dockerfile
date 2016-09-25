@@ -113,5 +113,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
   && mv ./composer.phar /usr/local/bin/composer
 
 RUN composer install --no-interaction
+ENV OPENREFINE_HOST localhost
+ENV OPENREFINE_PORT 3333
 
 CMD /code/scripts/run.sh
