@@ -211,16 +211,16 @@
         },
         {
             "name": "keboola/openrefine-php-client",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/keboola/openrefine-php-client.git",
-                "reference": "d6c7c0c992678532c819d39c8faf76f401542bde"
+                "reference": "e171d6ab925c4c6a8a1106994691fd378dd05c54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/keboola/openrefine-php-client/zipball/d6c7c0c992678532c819d39c8faf76f401542bde",
-                "reference": "d6c7c0c992678532c819d39c8faf76f401542bde",
+                "url": "https://api.github.com/repos/keboola/openrefine-php-client/zipball/e171d6ab925c4c6a8a1106994691fd378dd05c54",
+                "reference": "e171d6ab925c4c6a8a1106994691fd378dd05c54",
                 "shasum": ""
             },
             "require": {
@@ -244,7 +244,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2016-10-21 04:51:36"
+            "time": "2016-10-21 12:18:09"
         },
         {
             "name": "keboola/php-temp",
