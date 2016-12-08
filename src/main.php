@@ -20,6 +20,11 @@ if (!isset($config["parameters"]["script"])) {
     exit(1);
 }
 
+if (!file_exists($arguments["data"] . "/data/in/tables/data.csv")) {
+    print "Source data file not found.";
+    exit(1);
+}
+
 $openrefineHost = "localhost";
 if (getenv("OPENREFINE_HOST")) {
     $openrefineHost = getenv("OPENREFINE_HOST");
