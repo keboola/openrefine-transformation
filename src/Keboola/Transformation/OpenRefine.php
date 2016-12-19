@@ -11,6 +11,7 @@ namespace Keboola\Transformation;
 use Keboola\Csv\CsvFile;
 use Keboola\OpenRefine\Client;
 use Keboola\OpenRefine\Exception;
+use Keboola\Transformation\Exception as TransformationException;
 
 class OpenRefine
 {
@@ -40,7 +41,7 @@ class OpenRefine
      * @param $in
      * @param $operations
      * @return CsvFile
-     * @throws Exception
+     * @throws TransformationException
      */
     public function run($in, $operations)
     {
@@ -52,7 +53,7 @@ class OpenRefine
             $outFile = $client->exportRowsToCsv($projectId);
             $client->deleteProject($projectId);
         } catch (Exception $e) {
-            throw new Exception("Error processing OpenRefine operations: {$e->getMessage()}");
+            throw new TransformationException("Error processing OpenRefine operations: {$e->getMessage()}");
         }
         return $outFile;
     }

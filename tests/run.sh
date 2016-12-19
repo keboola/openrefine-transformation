@@ -40,4 +40,16 @@ else
     exit 1
 fi
 
+echo "{\"parameters\": {\"script\": \"fooBar\"}}" > /tmp/config.json
+mkdir -p /tmp/in/tables/
+echo "a,b" > /tmp/in/tables/data.csv
+echo "1,2" >> /tmp/in/tables/data.csv
+RUN=$(php /code/src/main.php --data=/tmp/)
+if [ "$RUN" == "Error processing OpenRefine operations: Cannot apply operations: error" ] ; then
+    echo "Script run OK"
+else
+    echo "Script run Fail: $RUN"
+    exit 1
+fi
+
 echo "Tests finished" >&1

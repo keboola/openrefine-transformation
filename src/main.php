@@ -20,7 +20,7 @@ if (!isset($config["parameters"]["script"])) {
     exit(1);
 }
 
-if (!file_exists($arguments["data"] . "/data/in/tables/data.csv")) {
+if (!file_exists($arguments["data"] . "/in/tables/data.csv")) {
     print "Source data file not found.";
     exit(1);
 }
