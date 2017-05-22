@@ -13,7 +13,7 @@ Batch processing uses [OpenRefine PHP Client](https://github.com/keboola/openref
 ## Build
 
 ```
-https://github.com/keboola/openrefine-transformation
+git clone https://github.com/keboola/openrefine-transformation
 cd openrefine-transformation
 docker-compose build
 ```
@@ -38,10 +38,14 @@ If you want to specify a custom OpenRefine server
 docker-compose run -e OPENREFINE_HOST=host OPENREFINE_PORT=3333 --rm tests
 ```
 
-## OpenRefine Sandbox
+## OpenRefine Sandbox (pull from Quay.io)
  
 ```
-docker-compose up sandbox
+git clone https://github.com/keboola/openrefine-transformation
+cd openrefine-transformation
+docker pull quay.io/keboola/openrefine-transformation
+docker image tag quay.io/keboola/openrefine-transformation keboola/openrefine-transformation
+docker-compose run sandbox
 ```
 
 And point your browser to [localhost:3333](http://localhost:3333)
