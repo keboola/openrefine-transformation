@@ -24,6 +24,16 @@ services:
       - "3333:3333"
     command: /app/OpenRefine-2.6-rc.2/refine -m 7168m -i 0.0.0.0
 
+  sandbox:
+    image: keboola/openrefine-transformation
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/code
+    ports:
+      - "3333:3333"
+    command: /app/OpenRefine-2.6-rc.2/refine -m 7168m -i 0.0.0.0
+
   tests:
     image: keboola/openrefine-transformation
     tty: true

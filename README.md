@@ -41,7 +41,7 @@ docker-compose run -e OPENREFINE_HOST=host OPENREFINE_PORT=3333 --rm tests
 ## OpenRefine Sandbox
  
 ```
-docker-compose up openrefine-transformation-dev
+docker-compose up sandbox
 ```
 
 And point your browser to [localhost:3333](http://localhost:3333)
