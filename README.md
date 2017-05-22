@@ -8,11 +8,13 @@ WORK IN PROGRESS!
 ## Version
 
 The current version is **OpenRefine 2.6 RC 2**. 
-Batch processing uses [https://github.com/keboola/openrefine-php-client](OpenRefine PHP Client). 
+Batch processing uses [OpenRefine PHP Client](https://github.com/keboola/openrefine-php-client). 
 
 ## Build
 
 ```
+https://github.com/keboola/openrefine-transformation
+cd openrefine-transformation
 docker-compose build
 ```
 
