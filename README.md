@@ -38,7 +38,21 @@ If you want to specify a custom OpenRefine server
 docker-compose run -e OPENREFINE_HOST=host OPENREFINE_PORT=3333 --rm tests
 ```
 
-## OpenRefine Sandbox (pull from Quay.io)
+## OpenRefine Sandbox 
+
+### Local Build
+
+```
+git clone https://github.com/keboola/openrefine-transformation
+cd openrefine-transformation
+docker-compose build
+docker-compose run sandbox
+```
+
+And point your browser to [localhost:3333](http://localhost:3333)
+
+
+### Pull from Quay.io
  
 ```
 git clone https://github.com/keboola/openrefine-transformation
