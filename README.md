@@ -72,3 +72,7 @@ From there you can copy & paste it where required.
 ![](./docs/extract-json.png)
 
 
+
+## License
+
+MIT licensed, see [LICENSE](./LICENSE) file.
